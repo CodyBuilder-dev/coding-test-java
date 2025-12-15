@@ -1,9 +1,9 @@
-package LeetCode;
+package LeetCode.Q2;
 
 public class ListNode {
 
   int val;
-  LeetCode.ListNode next;
+  ListNode next;
 
   ListNode() {
   }
@@ -12,7 +12,7 @@ public class ListNode {
     this.val = val;
   }
 
-  ListNode(int val, LeetCode.ListNode next) {
+  ListNode(int val, ListNode next) {
     this.val = val;
     this.next = next;
   }

@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.Q2;
 
 import exceptions.WrongAnswerException;
 import java.security.SecureRandom;

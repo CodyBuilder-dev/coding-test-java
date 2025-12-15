@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.Q2;
 
 /**
  * Java에서 100단위 이상의 자리수는 int, long으로 해결할 수 없다는 것을 간과한 잘못된 풀이

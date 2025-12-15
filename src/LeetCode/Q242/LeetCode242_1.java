@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.Q242;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,8 +9,8 @@ public class LeetCode242_1 {
   }
 
   public boolean isAnagram(String s, String t) {
-    Map<String, Integer> sMap = new HashMap();
-    Map<String, Integer> tMap = new HashMap();
+    Map<String, Integer> sMap = new HashMap<>();
+    Map<String, Integer> tMap = new HashMap<>();
 
     String[] sList = s.split("");
     String[] tList = t.split("");

@@ -1,4 +1,4 @@
-package LeetCode;
+package LeetCode.Q2;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
