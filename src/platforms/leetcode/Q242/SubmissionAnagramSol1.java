@@ -1,5 +1,8 @@
 package platforms.leetcode.Q242;
 
+import framework.runner.auto.SubmitMethod;
+
+@SubmitMethod("isAnagram")
 public class SubmissionAnagramSol1 {
   // 플랫폼 요구 시그니처 그대로
   public boolean isAnagram(String s, String t) {

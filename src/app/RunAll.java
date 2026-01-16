@@ -1,30 +1,28 @@
 package app;
 
+import static framework.env.EnvInfo.printJvmEnvironment;
+
 import framework.bench.BenchmarkConfig;
-import framework.core.Problem;
-import framework.env.EnvInfo;
+import framework.runner.auto.AutoRunner;
 import java.util.*;
+import platforms.leetcode.Q242.AnagramModule;
+import platforms.programmers.Q76501.SignedSumModule;
 
 public class RunAll {
   public static void main(String[] args) {
-    EnvInfo.printJvmEnvironment();
+
+    printJvmEnvironment();
 
     BenchmarkConfig cfg = new BenchmarkConfig(
-        5,   // warmup
-        30,  // runs
-        true,
-        20
+        5,    // warmup
+        30,   // runs
+        true, // forceGcBetween
+        10    // gcSleepMs
     );
 
-    List<Problem> problems = List.of(
-        platforms.leetcode.Q242.ProblemFactory.create(),
-        platforms.programmers.Q76501.ProblemFactory.create()
-//        platforms.programmers.dice.ProblemFactory.create()
-    );
-
-    for (Problem p : problems) {
-      p.runAll(cfg);
-    }
-
+    AutoRunner.runAll(List.of(
+        new SignedSumModule(),
+        new AnagramModule()
+    ), cfg);
   }
 }
