@@ -7,23 +7,25 @@ import java.util.List;
 import java.util.Map;
 import platforms.leetcode.Q242.model.Q242Input;
 import platforms.leetcode.Q242.solutions.SubmissionAnagramSol1;
+import platforms.leetcode.Q242.solutions.SubmissionAnagramSol1_1;
 import platforms.leetcode.Q242.tests.AnagramFileSuites;
+import platforms.leetcode.Q242.tests.AnagramTestFactory;
 import platforms.leetcode.Q242.tests.Q242Suites;
 
 public final class AnagramModule implements SingleAutoModule<Q242Input, Boolean> {
   @Override public String name() { return "leetcode/anagram"; }
-  @Override public TestSuite<Q242Input, Boolean> suite() { return Q242Suites.smoke(); }
   @Override
   public Map<String, TestSuite<Q242Input, Boolean>> suites() {
-    var manual = Q242Suites.smoke(); // 네가 손으로 만든 것
 
-    var merged = TestSuites.concat("anagram/merged", manual, AnagramFileSuites.examples()
+    var merged = TestSuites.concat("anagram/merged",
+        Q242Suites.smoke(), // 네가 손으로 만든 것
+        AnagramFileSuites.examples(),
+        AnagramTestFactory.createUsingTestFactories()
     );
 
     return java.util.Map.of(
         "smoke", merged
-        // "random", AnagramSuites.random() 등 추가 가능
     );
   }
-  @Override public List<?> rawSolutions() { return List.of(new SubmissionAnagramSol1()); }
+  @Override public List<?> rawSolutions() { return List.of(new SubmissionAnagramSol1(),new SubmissionAnagramSol1_1()); }
 }

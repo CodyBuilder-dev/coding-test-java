@@ -7,14 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public non-sealed interface SingleAutoModule<I, O> extends AutoModule {
-  /** 기존 단일 suite용. 그대로 둬도 되고, suites()만 override 해도 됨 */
-  default TestSuite<I, O> suite() { return null; }
-
-  /** 여러 suite를 제공하고 싶으면 여기만 override */
-  default Map<String, TestSuite<I, O>> suites() {
-    TestSuite<I, O> s = suite();
-    return s == null ? Map.of() : Map.of("default", s);
-  }
+  default Map<String, TestSuite<I, O>> suites() { return Map.of(); }
 
   List<?> rawSolutions(); // 제출 클래스 인스턴스들
 

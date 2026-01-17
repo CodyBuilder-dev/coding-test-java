@@ -1,16 +1,15 @@
-package framework.factory;
+package framework.factory.tests;
 
 import framework.oracle.Oracle;
 import framework.test.TestCase;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class OracleOnlyFactory {
   private OracleOnlyFactory() {}
 
+  /** oracle-only: no expected; caseOracle handles validation */
   public static <I, O> List<TestCase<I, O>> oracleOnly(
       int count,
       Supplier<I> genInput,

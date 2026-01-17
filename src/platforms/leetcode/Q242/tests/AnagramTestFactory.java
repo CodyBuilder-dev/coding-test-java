@@ -2,6 +2,7 @@ package platforms.leetcode.Q242.tests;
 
 import framework.factory.gen.Generators;
 import framework.factory.gen.Rand;
+import framework.factory.tests.OracleOnlyFactory;
 import framework.factory.tests.TestFactories;
 import framework.test.TestCase;
 import framework.test.TestSuite;
@@ -87,7 +88,7 @@ public final class AnagramTestFactory {
     return new String(a);
   }
 
-  public TestSuite<Q242Input, Boolean> createUsingTestFactories(){
+  public static TestSuite<Q242Input, Boolean> createUsingTestFactories(){
     Rand rnd = new Rand(1);
 
     Supplier<Q242Input> gen = () -> {
@@ -112,7 +113,17 @@ public final class AnagramTestFactory {
       return true;
     };
 
-    var cases = TestFactories.withExpected(200, gen, expected, "rnd");
+    // expected
+    var cases = TestFactories.withExpected(200, gen, expected, "random expected");
+
+    // 예: 어떤 문제든 output이 null이면 안 된다
+    cases = OracleOnlyFactory.oracleOnly(
+        200,
+        gen,
+        framework.oracle.Oracles.notNull(),
+        "shape oracle"
+    );
+
     return TestSuite.of("leetcode/anagram testFactories", cases);
   }
 }

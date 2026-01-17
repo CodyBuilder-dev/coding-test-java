@@ -1,5 +1,7 @@
 package framework.test;
 
+import framework.test.Metamorphic.Input;
+import framework.test.Metamorphic.Output;
 import framework.oracle.Oracle;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -34,4 +36,10 @@ public final class TestCase<I, O> {
   public static <I, O> TestCase<I, O> expectAndOracle(I input, O expected, Oracle<I, O> oracle, String desc, String... tags) {
     return new TestCase<>(input, expected, oracle, desc, new HashSet<>(Arrays.asList(tags)));
   }
+
+  // 4) 빈 테스트케이스 (Metamorphic용. suitesOracle로 검증)
+  public static <I, O> TestCase<Input<I>, Output<O>> empty(Input<I> input, String desc, Set<String> tags) {
+    return new TestCase(input, null, null, desc, new HashSet<>(Arrays.asList(tags)));
+  }
+
 }

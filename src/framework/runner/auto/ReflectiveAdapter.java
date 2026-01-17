@@ -2,13 +2,23 @@ package framework.runner.auto;
 
 import framework.core.Solution;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public final class ReflectiveAdapter {
   private ReflectiveAdapter() {}
 
-  public static <I, O> Solution<I, O> adaptSingle(Object raw, String explicitMethodName) {
+  @SuppressWarnings("unchecked")
+  public static <I,O> Solution<I,O> adaptOrPassSingle(Object raw, String explicitMethodName) {
+    if (raw instanceof Solution<?,?> s) {
+      return (Solution<I,O>) s;
+    }
+    return adaptSingle(raw, explicitMethodName);
+  }
+
+  private static <I, O> Solution<I, O> adaptSingle(Object raw, String explicitMethodName) {
     Objects.requireNonNull(raw);
     Method m = findSubmitMethod(raw.getClass(), explicitMethodName);
     m.setAccessible(true);
@@ -37,7 +47,30 @@ public final class ReflectiveAdapter {
     };
   }
 
-  public static <BI, BO> Solution<BI, BO> adaptBatch(Object raw, String explicitMethodName) {
+  /** raw objects -> adapted solutions (single) */
+  public static <I, O> List<Solution<I, O>> adaptAllSingle(
+      List<?> raws,
+      String explicitMethodName
+  ) {
+    if (raws == null) return List.of();
+    List<Solution<I, O>> out = new ArrayList<>(raws.size());
+    for (Object r : raws) {
+      if (r == null) continue;
+      out.add(adaptOrPassSingle(r, explicitMethodName));
+    }
+    return out;
+  }
+
+
+  @SuppressWarnings("unchecked")
+  public static <I,O> Solution<I,O> adaptOrPassBatch(Object raw, String explicitMethodName) {
+    if (raw instanceof Solution<?,?> s) {
+      return (Solution<I,O>) s;
+    }
+    return adaptBatch(raw, explicitMethodName);
+  }
+
+  private static <BI, BO> Solution<BI, BO> adaptBatch(Object raw, String explicitMethodName) {
     Objects.requireNonNull(raw);
     Method m = findSubmitMethod(raw.getClass(), explicitMethodName);
     m.setAccessible(true);
@@ -55,6 +88,20 @@ public final class ReflectiveAdapter {
         }
       }
     };
+  }
+
+  /** raw objects -> adapted solutions (batch) */
+  public static <BI, BO> List<Solution<BI, BO>> adaptAllBatch(
+      List<?> raws,
+      String explicitMethodName
+  ) {
+    if (raws == null) return List.of();
+    List<Solution<BI, BO>> out = new ArrayList<>(raws.size());
+    for (Object r : raws) {
+      if (r == null) continue;
+      out.add(adaptOrPassBatch(r, explicitMethodName));
+    }
+    return out;
   }
 
   private static Method findSubmitMethod(Class<?> clazz, String explicit) {

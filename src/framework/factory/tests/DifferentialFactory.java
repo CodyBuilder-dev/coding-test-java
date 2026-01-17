@@ -1,7 +1,6 @@
-package framework.factory;
+package framework.factory.tests;
 
 import framework.core.Solution;
-import framework.oracle.Oracle;
 import framework.test.TestCase;
 import java.util.ArrayList;
 import java.util.List;
