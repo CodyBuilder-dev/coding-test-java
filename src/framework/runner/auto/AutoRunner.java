@@ -21,6 +21,19 @@ public final class AutoRunner {
   public static void runAll(List<? extends AutoModule> modules, BenchmarkConfig cfg, RunOptions opt) {
     Objects.requireNonNull(modules);
     for (AutoModule m : modules) {
+      String moduleName = m.name();
+      String modSkipReason = (opt == null) ? null : opt.explainSkipModule(m);
+      if (modSkipReason != null) {
+        if (opt.verbosity != RunOptions.Verbosity.QUIET) {
+          RunLog.skip("MODULE", moduleName, modSkipReason);
+        }
+        continue;
+      }
+
+      if (opt == null || opt.verbosity != RunOptions.Verbosity.QUIET) {
+        RunLog.run("MODULE", moduleName);
+      }
+
       if (m instanceof SingleAutoModule<?, ?> sm) runSingle(sm, cfg, opt);
       else if (m instanceof BatchAutoModule<?, ?, ?, ?> bm) runBatch(bm, cfg, opt);
       else throw new IllegalArgumentException("unknown module: " + m.getClass());
@@ -51,7 +64,20 @@ public final class AutoRunner {
 
     for (var entry : suites.entrySet()) {
       String suiteTag = entry.getKey();
-      if (!opt.shouldRunSuite(suiteTag)) continue;
+
+      String suiteName = entry.getValue().name; // 또는 moduleName + "/" + suiteKey
+      String reason = (opt == null) ? null : opt.explainSkipSuite(suiteTag);
+
+      if (reason != null) {
+        if (opt.verbosity != RunOptions.Verbosity.QUIET) {
+          RunLog.skip("SUITE", suiteName, reason);
+        }
+        continue;
+      }
+
+      if (opt == null || opt.verbosity != RunOptions.Verbosity.QUIET) {
+        RunLog.run("SUITE", suiteName);
+      }
 
       final TestSuite<I, O> suite;
       // optional module-wide suiteOracle injection if suite has none

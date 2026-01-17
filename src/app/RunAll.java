@@ -24,15 +24,15 @@ public class RunAll {
 
     // 예시: programmers만, suite는 smoke만, 이름에 dice 포함된 것만 실행
     RunOptions opt = RunOptions.builder()
-        .includePlatform("leetcode")
+//        .includePlatform("leetcode")
+//        .includeNameRegex("dice")
         .includeSuites("smoke")
-        .includeNameRegex("dice")
         .build();
 
     AutoRunner.runAll(List.of(
-        new SignedSumModule(),
-        new AnagramModule(),
-        new AnagramMetamorphicModule()
+        new SignedSumModule()
+//        new AnagramModule(),
+//        new AnagramMetamorphicModule()
     ), cfg, opt);
   }
 }

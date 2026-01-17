@@ -6,6 +6,8 @@ import framework.oracle.Oracles;
 import framework.oracle.Oracle;
 import framework.oracle.Reference;
 import framework.pretty.PrettyPrinter;
+import framework.runner.auto.RunLog;
+import framework.runner.auto.RunOptions;
 import framework.test.TestCase;
 import framework.test.TestSuite;
 import framework.core.Solution;
@@ -87,6 +89,16 @@ public final class Judge<I, O> {
 
     for (int i = 0; i < suite.cases.size(); i++) {
       TestCase<I, O> tc = suite.cases.get(i);
+
+//      Case 단위 필터링까지 필요하다면, 매개변수에 opt 넣고 여기서 하면 됨
+//      String caseReason = (opt == null) ? null : opt.explainSkipCaseTags(tc.tags);
+//
+//      if (caseReason != null) {
+//        if (opt.verbosity == RunOptions.Verbosity.VERBOSE) {
+//          RunLog.skip("CASE", suite.name + " :: " + tc.desc, caseReason);
+//        }
+//        continue;
+//      }
 
       O actual = sol.solve(tc.input);
 
