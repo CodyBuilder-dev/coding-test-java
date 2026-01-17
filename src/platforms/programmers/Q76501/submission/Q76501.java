@@ -1,4 +1,4 @@
-package platforms.programmers.Q76501;
+package platforms.programmers.Q76501.submission;
 
 public class Q76501 {
   public int solution(int[] absolutes, boolean[] signs) {

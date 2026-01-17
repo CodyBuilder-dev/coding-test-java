@@ -1,10 +1,11 @@
-package platforms.programmers.Q76501;
+package platforms.programmers.Q76501.tests;
 
 import framework.test.TestCase;
 import framework.test.TestSuite;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import platforms.programmers.Q76501.model.SignedSumInput;
 
 public final class SignedSumTestFactory {
   private final int maxLen;

@@ -1,10 +1,17 @@
-package platforms.leetcode.Q242;
+package platforms.leetcode.Q242.tests;
 
+import framework.factory.gen.Generators;
+import framework.factory.gen.Rand;
+import framework.factory.tests.TestFactories;
 import framework.test.TestCase;
 import framework.test.TestSuite;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import platforms.leetcode.Q242.tests.oracle.AnagramOracles;
+import platforms.leetcode.Q242.model.Q242Input;
 
 public final class AnagramTestFactory {
   private final String alphabet;
@@ -78,5 +85,34 @@ public final class AnagramTestFactory {
       char tmp = a[i]; a[i] = a[j]; a[j] = tmp;
     }
     return new String(a);
+  }
+
+  public TestSuite<Q242Input, Boolean> createUsingTestFactories(){
+    Rand rnd = new Rand(1);
+
+    Supplier<Q242Input> gen = () -> {
+      String s = Generators.stringLower(rnd, 1, 30);
+      boolean makeTrue = rnd.nextBool();
+      String t;
+      if (makeTrue) {
+//        t = Generators.sortChars(s); // (간단히) 정렬로 permutation 만든 뒤 셔플하고 싶으면 추가
+        // 진짜 permutation을 만들고 싶다면 char[] 셔플 구현하면 됨
+        t = new StringBuilder(s).reverse().toString(); // 예시: 같은 multiset이면 true
+      } else {
+        t = Generators.stringLower(rnd, 1, 30);
+      }
+      return new Q242Input(s, t);
+    };
+
+    Function<Q242Input, Boolean> expected = in -> {
+      if (in.s().length() != in.t().length()) return false;
+      int[] cnt = new int[256];
+      for (int i=0;i<in.s().length();i++) cnt[in.s().charAt(i)]++;
+      for (int i=0;i<in.t().length();i++) if(--cnt[in.t().charAt(i)]<0) return false;
+      return true;
+    };
+
+    var cases = TestFactories.withExpected(200, gen, expected, "rnd");
+    return TestSuite.of("leetcode/anagram testFactories", cases);
   }
 }

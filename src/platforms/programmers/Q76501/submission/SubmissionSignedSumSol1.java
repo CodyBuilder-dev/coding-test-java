@@ -1,4 +1,4 @@
-package platforms.programmers.Q76501;
+package platforms.programmers.Q76501.submission;
 
 import framework.runner.auto.SubmitMethod;
 

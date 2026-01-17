@@ -1,4 +1,4 @@
-package platforms.leetcode.Q242;
+package platforms.leetcode.Q242.solutions;
 
 import java.util.*;
 

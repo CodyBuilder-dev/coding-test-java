@@ -5,10 +5,15 @@ import framework.oracle.Reference;
 import framework.test.BatchTestSuite;
 import framework.test.TestSuite;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 public non-sealed interface BatchAutoModule<EI, EO, BI, BO> extends AutoModule {
   BatchTestSuite<EI, EO, BI> suite();
+  default Map<String, BatchTestSuite<EI, EO, BI>> suites() {
+    BatchTestSuite<EI, EO, BI> s = suite();
+    return s == null ? Map.of() : Map.of("default", s);
+  }
   List<?> rawSolutions();
 
   // batch only required

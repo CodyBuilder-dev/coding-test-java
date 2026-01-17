@@ -1,6 +1,7 @@
-package platforms.leetcode.Q242;
+package platforms.leetcode.Q242.tests.pretty;
 
 import framework.pretty.PrettyPrinter;
+import platforms.leetcode.Q242.model.Q242Input;
 
 public final class AnagramPrettyPrinters {
   private AnagramPrettyPrinters() {}

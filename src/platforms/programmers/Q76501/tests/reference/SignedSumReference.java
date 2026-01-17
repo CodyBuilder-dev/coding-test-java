@@ -1,6 +1,7 @@
-package platforms.programmers.Q76501;
+package platforms.programmers.Q76501.tests.reference;
 
 import framework.oracle.Reference;
+import platforms.programmers.Q76501.model.SignedSumInput;
 
 public class SignedSumReference implements Reference<SignedSumInput, Integer> {
   @Override

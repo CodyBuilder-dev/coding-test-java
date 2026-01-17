@@ -1,6 +1,7 @@
-package platforms.leetcode.Q242;
+package platforms.leetcode.Q242.tests.reference;
 
 import framework.oracle.Reference;
+import platforms.leetcode.Q242.model.Q242Input;
 
 public class Q242Reference implements Reference<Q242Input, Boolean> {
   @Override

@@ -1,10 +1,11 @@
-package platforms.leetcode.Q242;
+package platforms.leetcode.Q242.tests;
 
 import framework.oracle.CheckResult;
 import framework.oracle.Oracles;
 import framework.test.TestCase;
 import framework.test.TestSuite;
 import java.util.List;
+import platforms.leetcode.Q242.model.Q242Input;
 
 public class Q242Suites {
   public static TestSuite<Q242Input, Boolean> smoke() {

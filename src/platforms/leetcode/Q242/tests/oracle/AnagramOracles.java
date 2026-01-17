@@ -1,7 +1,8 @@
-package platforms.leetcode.Q242;
+package platforms.leetcode.Q242.tests.oracle;
 
 import framework.oracle.CheckResult;
 import framework.oracle.Oracle;
+import platforms.leetcode.Q242.model.Q242Input;
 
 public final class AnagramOracles {
   private AnagramOracles() {}
