@@ -31,7 +31,8 @@ package platforms.programmers.Q76501.model;
 
 public record SignedSumInput(int[] absolutes, boolean[] signs) {}
 ```
-- 단일 입력이거나, 복수 입력이라도 Java 기본 데이터타입이면 **record 없이 바로 사용**해도 됩니다.
+- 단일 입력이거나 Java 기본 데이터타입이면, **record 없이 바로 사용**해도 됩니다.
+- 복수 입력일 경우, **반드시 Input클래스를 생성해줘야 실행이 가능**합니다.
 - Batch 문제의 경우에도 입력 원소 타입(EI) 기준으로 정의합니다.
 
 
