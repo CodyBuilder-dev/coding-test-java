@@ -38,7 +38,6 @@ public final class PairedListFileSuiteLoader {
     }
 
     List<TestCase<I, O>> cases = new ArrayList<>(caseCount);
-
     for (int ci = 0; ci < caseCount; ci++) {
       // parse inputs for this case
       List<Object> parts = new ArrayList<>(arity);

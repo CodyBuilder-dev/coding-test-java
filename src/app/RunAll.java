@@ -26,13 +26,13 @@ public class RunAll {
     RunOptions opt = RunOptions.builder()
 //        .includePlatform("leetcode")
 //        .includeNameRegex("dice")
-        .includeSuites("smoke")
+//        .includeSuites("smoke")
         .build();
 
     AutoRunner.runAll(List.of(
-        new SignedSumModule()
-//        new AnagramModule(),
-//        new AnagramMetamorphicModule()
+        new SignedSumModule(),
+        new AnagramModule(),
+        new AnagramMetamorphicModule()
     ), cfg, opt);
   }
 }

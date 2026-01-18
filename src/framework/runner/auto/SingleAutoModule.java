@@ -8,7 +8,6 @@ import java.util.Map;
 
 public non-sealed interface SingleAutoModule<I, O> extends AutoModule {
   default Map<String, TestSuite<I, O>> suites() { return Map.of(); }
-
   List<?> rawSolutions(); // 제출 클래스 인스턴스들
 
   // optional overrides

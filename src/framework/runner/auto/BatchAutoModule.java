@@ -9,11 +9,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public non-sealed interface BatchAutoModule<EI, EO, BI, BO> extends AutoModule {
-  BatchTestSuite<EI, EO, BI> suite();
-  default Map<String, BatchTestSuite<EI, EO, BI>> suites() {
-    BatchTestSuite<EI, EO, BI> s = suite();
-    return s == null ? Map.of() : Map.of("default", s);
-  }
+  default Map<String, BatchTestSuite<EI, EO, BI>> suites() { return Map.of(); }
   List<?> rawSolutions();
 
   // batch only required

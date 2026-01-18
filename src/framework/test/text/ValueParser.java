@@ -28,7 +28,8 @@ final class ValueParser {
     }
 
     // fallback: bare word as String
-    return s;
+//    return s;
+    return LiteralParsers.parse(s,String.class);
   }
 
   /** returns List<Object> (elements can be List for nested arrays) */

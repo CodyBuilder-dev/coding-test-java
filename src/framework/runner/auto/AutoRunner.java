@@ -46,7 +46,10 @@ public final class AutoRunner {
     System.out.println("\n\n================ PROBLEM: " + module.name() + " ================");
 
     // suite oracle override: module.suiteOracle()가 있으면 suite에 합쳐서 넣고 싶을 때
-    final Map<String, TestSuite<I, O>> suites = module.suites();
+    Map<String, TestSuite<I, O>> suites = module.suites();
+    // 자동 파일테스트케이스 추가
+    suites = AutoSuiteAugmenter.augmentWithAutoExamples(module, suites);
+
     if (suites == null || suites.isEmpty()) {
       throw new IllegalStateException(module.name() + ": no suites provided (override suite() or suites())");
     }
@@ -123,6 +126,10 @@ public final class AutoRunner {
     System.out.println("\n\n================ PROBLEM: " + module.name() + " ================");
 
     Map<String, BatchTestSuite<EI, EO, BI>> suites = module.suites();
+
+    // ✅ 여기 추가: AutoBatchExamples를 구현한 모듈이면 examples suite 자동 추가
+    suites = AutoSuiteAugmenter.augmentWithAutoBatchExamples(module, suites);
+
     if (suites == null || suites.isEmpty()) {
       throw new IllegalStateException(module.name() + ": no suites provided (override suite() or suites())");
     }
