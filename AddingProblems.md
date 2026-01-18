@@ -10,7 +10,7 @@
 
 플랫폼과 문제 번호 기준으로 폴더를 만듭니다.
 
-예시: Programmers 76501
+예시: Programmers 76501번 문제
 
 ```
 platforms/programmers/Q76501/
@@ -31,15 +31,15 @@ package platforms.programmers.Q76501.model;
 
 public record SignedSumInput(int[] absolutes, boolean[] signs) {}
 ```
-- 단일 입력이거나 Java 기본 데이터타입이면, **record 없이 바로 사용**해도 됩니다.
-- 복수 입력일 경우, **반드시 Input클래스를 생성해줘야 실행이 가능**합니다.
+- **단일 입력**이거나 Java 기본 데이터타입이면, **record 없이 바로 사용**해도 됩니다.
+- **복수 입력**일 경우, **반드시 Input클래스를 생성해줘야 실행이 가능**합니다.
 - Batch 문제의 경우에도 입력 원소 타입(EI) 기준으로 정의합니다.
 
 
 ## 3️⃣ 풀이 코드 작성 (solutions/)
 
 플랫폼 요구 시그니처를 그대로 유지합니다.  
-클래스/메서드 이름은 자유이며, 채점할 메서드는 @SubmitMethod로 지정합니다.
+클래스 이름은 자유이며, 채점할 메서드는 @SubmitMethod로 지정합니다.
 
 ```Java
 package platforms.programmers.Q76501.solutions;
@@ -61,44 +61,67 @@ public class SubmissionSol1 {
 - 여러 풀이가 있다면 클래스만 추가하면 됩니다.
 
 ## 4️⃣ 테스트케이스 입력 작성 (파일만 추가)
-📄 tests/examples/inputs.txt
-- 한 줄 = 한 테스트 (또는 한 배치 실행)
 - 문자열은 ""로 감쌀 것
 - 배열 리터럴 문법 사용
 
-### 파일 예시
-```
-"anagram"
-"nagaram"
-"rat"
-"car"
-```
-```
-[4,7,12]|[true,false,true]
-[1,2,3]|[false,false,true]
-```
-```
-[["RGBYDW","GBRDWY"],["YBGDRW","GBDYWR"]]
-[["RGBYDW","RGBYDW"],["RGBYDW","RGBYWD"]]
-```
+### 📄 tests/examples/inputs.txt
 
-📄 tests/examples/outputs.txt
-- 한 줄 = 한 테스트의 기대 결과 (또는 한 배치 실행)
 
-### 파일 예시
-```
-true
-false
-```
-```
-9
-0
-```
-```
-[1,1]
-[1,0]
-```
-⚠️ 파일이 없거나 파싱에 실패하면 **즉시 에러(fail-fast)**가 발생합니다.
+- 단일 입력 문제 (TC 1개에 한 줄) 
+  - solution(String s)인 경우
+    ```
+    "true"
+    "false"
+    "error"
+    ```
+  - solution(String[][] s)인 경우
+    ```
+    [["RGBYDW","GBRDWY"],["YBGDRW","GBDYWR"]]
+    [["RGBYDW","RGBYDW"],["RGBYDW","RGBYWD"]]
+    ```
+
+- 복수 입력 문제 (TC 1개가 여러 줄)
+  - solution(String s, String t)인 경우
+    ```
+    "anagram"
+    "nagaram"
+    "rat"
+    "car"
+    ```
+  - solution(int[] i, boolean[] b)인 경우
+    ```
+    [4,7,12]
+    [true,false,true]
+    [1,2,3]
+    [false,false,true]
+    ```
+  
+### 📄 tests/examples/outputs.txt
+- 단일 입력 문제
+  - int solution(String s) 
+    ```
+    1
+    0
+    -1
+    ```
+  - int[] solution(String[][] s)
+    ```
+    [1,1]
+    [1,0]
+    ```   
+- 복수 입력 문제 
+  - booelan(solution String s, String t)
+    ```
+    true
+    false
+    ```
+  - int solution(int[] i, boolean[] b)  
+    ```
+    9
+    0
+    ```
+
+⚠️ 파일이 없거나 파싱에 실패하면 **즉시 에러(fail-fast)** 가 발생합니다.
 
 ## 5️⃣ (선택) Oracle / Reference 추가
 ### Oracle (불변식 검증)
@@ -132,8 +155,9 @@ public final class ReferenceImpl implements Reference<SignedSumInput, Integer> {
   }
 }
 ```
-- Reference는 느려도 괜찮은 정답의 구현체입니다.
-- 테스트케이스가 없는 테스트를 검증할 때 사용됩니다.
+- **Oracle**은 해당 정답이 갖는 제약조건(null, 정수 범위 등)의 구현체입니다.
+- **Reference**는 느리지만 확실하게 정답인 풀이의 구현체입니다.
+- Oracle/Reference는 **테스트케이스가 없는 테스트를 검증**할 때 사용됩니다.
 - Oracle/Reference 추가 없이도 **테스트케이스가 정상이면 채점은 가능**합니다.
 
 ## 6️⃣ Module 작성 (가장 중요)
@@ -193,10 +217,10 @@ AutoRunner.runAll(
 );
 ```
 
-이제 실행하면:
-- 예제 테스트 자동 로드
+이제 RunAll.main 메서드를 실행하면:
+- 예제 테스트가 자동 로드되고
 - 채점 / 벤치마크 수행
-- 스킵된 경우에도 이유 로그 출력
+- 정답/오답/스킵된 경우 각각에 대해 로그가 출력됩니다
 
 ## ✅ 체크리스트
 - [ ] 문제 폴더에 풀이 코드 작성 및 @SubmitMethod 적용
